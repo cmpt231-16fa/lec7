@@ -1,9 +1,9 @@
-# reveal-skel
-## A Template for Presentations in Reveal.js
+# Lecture 7, CMPT231
+## ch15 Dynamic Programming
 
-[![Travis-CI build status](https://travis-ci.org/sermons/reveal-skel.svg)](https://travis-ci.org/sermons/reveal-skel)
-[![Node dependencies](https://david-dm.org/sermons/reveal-skel.svg)](https://david-dm.org/sermons/reveal-skel)
-[![Node dev status](https://david-dm.org/sermons/reveal-skel/dev-status.svg)](https://david-dm.org/sermons/reveal-skel#info=devDependencies)
+[![Travis-CI build status](https://travis-ci.org/cmpt231-16fa/lec7.svg)](https://travis-ci.org/cmpt231-16fa/lec7)
+[![Node dependencies](https://david-dm.org/cmpt231-16fa/lec7.svg)](https://david-dm.org/cmpt231-16fa/lec7)
+[![Node dev status](https://david-dm.org/cmpt231-16fa/lec7/dev-status.svg)](https://david-dm.org/cmpt231-16fa/lec7#info=devDependencies)
 
 Template presentation: [reveal-skel](https://github.com/sermons/reveal-skel)
 
