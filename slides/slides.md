@@ -58,7 +58,7 @@
 ## Fib bottom-up
 
 ---
-## Least common substring
+## Longest common subsequence
 
 ---
 ## Optimal substructure
