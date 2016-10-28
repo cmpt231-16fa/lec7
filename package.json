@@ -1,12 +1,12 @@
 {
-  "name": "@cmpt231-16fa/lec7",
+  "name": "@cmpt231-16fa/lec8",
   "version": "0.6.0",
-  "repository": "cmpt231-16fa/lec7",
+  "repository": "cmpt231-16fa/lec8",
   "description": "Lecture 7 CMPT231",
   "keywords": ["slides", "lectures", "talks", "ppt"],
   "author": "Sean Ho <seanho@seanho.com> (http://seanho.com)",
   "config": {
-    "pretty_url": "cmpt231.seanho.com/lec7",
+    "pretty_url": "cmpt231.seanho.com/lec8",
     "cname": "",
     "multiplex": {
       "url": "https://mp-seanho00.rhcloud.com:8443/",
