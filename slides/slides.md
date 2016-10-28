@@ -1,12 +1,14 @@
-<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-UOwvwZ9Dy6w-hold_hands.jpg" -->
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
 # CMPT231
 ## Lecture 8: ch15
 ### Dynamic Programming
 
 ---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
 ## Devotional
 
 ---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
 ## Outline for today
 
 ---
@@ -16,6 +18,7 @@
 ## Dynamic programming
 
 ---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
 ## Outline
 
 ---
@@ -31,6 +34,7 @@
 ## Overlapping subproblems
 
 ---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
 ## Outline
 
 ---
@@ -46,6 +50,7 @@
 ## Subproblem graph
 
 ---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
 ## Outline
 
 ---
@@ -64,6 +69,7 @@
 ## Optimal substructure
 
 ---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
 ## Outline
 
 ---
@@ -76,6 +82,7 @@
 ## Bottom-up solution
 
 ---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
 ## Outline
 
 ---
@@ -89,3 +96,10 @@
 
 ---
 ## Optimal BST example
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
+## Outline
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" class="empty" -->
