@@ -1,6 +1,6 @@
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-UOwvwZ9Dy6w-hold_hands.jpg" -->
 # CMPT231
-## Lecture 7: ch15
+## Lecture 8: ch15
 ### Dynamic Programming
 
 ---
