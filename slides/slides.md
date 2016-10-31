@@ -10,6 +10,14 @@
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
 ## Outline for today
++ **Dynamic programming**
+  + **Rod-cutting** problem
+  + Optimal **substructure**
+  + Recursive, top-down, **bottom-up** solutions
++ **Fibonacci** sequence
++ Longest common **subsequence**
++ **Matrix-chain** multiplication
++ Optimal **binary search tree**
 
 ---
 ## Optimisation
@@ -19,7 +27,15 @@
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
-## Outline
+## Outline for today
++ Dynamic programming
+  + **Rod-cutting problem**
+  + **Optimal substructure**
+  + Recursive, top-down, bottom-up
++ Fibonacci sequence
++ Longest common subsequence
++ Matrix-chain multiplication
++ Optimal binary search tree
 
 ---
 ## Rod-cutting problem
@@ -35,7 +51,15 @@
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
-## Outline
+## Outline for today
++ Dynamic programming
+  + Rod-cutting problem
+  + Optimal substructure
+  + **Recursive, top-down, bottom-up solutions**
++ Fibonacci sequence
++ Longest common subsequence
++ Matrix-chain multiplication
++ Optimal binary search tree
 
 ---
 ## 1 Recursive top-down
@@ -51,7 +75,15 @@
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
-## Outline
+## Outline for today
++ Dynamic programming
+  + Rod-cutting problem
+  + Optimal substructure
+  + Recursive, top-down, bottom-up
++ **Fibonacci sequence**
++ **Longest common subsequence**
++ Matrix-chain multiplication
++ Optimal binary search tree
 
 ---
 ## Fibonacci sequence
@@ -70,7 +102,15 @@
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
-## Outline
+## Outline for today
++ Dynamic programming
+  + Rod-cutting problem
+  + Optimal substructure
+  + Recursive, top-down, bottom-up
++ Fibonacci sequence
++ Longest common subsequence
++ **Matrix-chain multiplication**
++ Optimal binary search tree
 
 ---
 ## Matrix-chain multiplication
@@ -83,7 +123,15 @@
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
-## Outline
+## Outline for today
++ Dynamic programming
+  + Rod-cutting problem
+  + Optimal substructure
+  + Recursive, top-down, bottom-up
++ Fibonacci sequence
++ Longest common subsequence
++ Matrix-chain multiplication
++ **Optimal binary search tree**
 
 ---
 ## Shortest/longest path
@@ -99,7 +147,15 @@
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
-## Outline
+## Outline for today
++ **Dynamic programming**
+  + **Rod-cutting** problem
+  + Optimal **substructure**
+  + Recursive, top-down, **bottom-up** solutions
++ **Fibonacci** sequence
++ Longest common **subsequence**
++ **Matrix-chain** multiplication
++ Optimal **binary search tree**
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" class="empty" -->
