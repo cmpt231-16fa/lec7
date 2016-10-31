@@ -157,15 +157,69 @@ Optimise **revenue** \`r\_n\` by considering possibilities for the **leftmost** 
 
 ---
 ## 1 Recursive top-down
+```
+def cutRod( p, n ):
+  if ( n < 1 ): return 0
+  q = -infinity
+  for i = 1 to n:
+    q = max( q, p[ i ] + cutRod( p, n-i ) )
+  return q
+```
+
++ **Naive** implementation of recurrence
++ Recursion **tree**?
++ T(n) = \`2^n\` (#15.1-1)
+  + Increase *n* by 1 &rArr; **double** run time!
++ E.g., *cutRod( p, 2 )* run many times
 
 ---
 ## 2 Top-down w/memoisation
+```
+cache = array[ 0 .. n ] of -infinity
+cache[ 0 ] = 0
+def cutRod( p, n ):
+  if cache[ n ] != -infinity:
+    return cache[ n ]
+  for i in 1 to n:
+    cache[ n ] = max( cache[ n ], p[ i ] + cutRod( p, n-i ) )
+  return cache[ n ]
+```
+
++ **Memoisation**: cache previously-computed results
++ *cutRod( p, n )* only computed **once** for each *n*
+  + if result not in cache, takes *&Theta;(n)* to compute
+  + Complexity: \`sum\_i Theta(i) = Theta(n^2)\`
++ Can we eliminate the **recursion**?
 
 ---
 ## 3 Bottom-up solution
+```
+cache = array[ 0 .. n ] of -infinity
+cache[ 0 ] = 0
+def cutRod( p, n ):
+  for j = 1 to n:
+    for i = 1 to j:
+      cache[ j ] = max( cache[ j ], p[ i ], cache[ j-i ] )
+  return cache[ n ]
+```
+
++ Start from **smaller** subproblems, caching as we go
++ Doubly-nested **for** loop computes each *cutRod( j )*
++ Computations are **cached** for reuse
+  + Cache should be **specific** to price table *p*
++ Complexity: \`sum\_i Theta(j) = Theta(n^2)\`
 
 ---
 ## Subproblem graph
++ **Nodes** are the subproblems (e.g., *cutRod( j )*)
++ **Arrows** show *dependencies*: which other subproblems are needed to compute each node
+  + Like recursion **tree**, but collapsing reused nodes
++ **Bottom-up**: must *sequence* nodes so all dependencies are resolved before reaching a node
++ **Top-down**: performs a *depth-first* search down to leaves
++ **Complexity** is generally &Theta;( *#nodes* + *#arrows* )
+
+>>>
+TODO: fig?
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
