@@ -180,12 +180,13 @@ cache[ 0 ] = 0
 def cutRod( p, n ):
   if cache[ n ] != -infinity:
     return cache[ n ]
-  for i in 1 to n:
+  for i = 1 to n:
     cache[ n ] = max( cache[ n ], p[ i ] + cutRod( p, n-i ) )
   return cache[ n ]
 ```
 
 + **Memoisation**: cache previously-computed results
+  + Need to **reset** cache for each new price table *p*
 + *cutRod( p, n )* only computed **once** for each *n*
   + if result not in cache, takes *&Theta;(n)* to compute
   + Complexity: \`sum\_i Theta(i) = Theta(n^2)\`
@@ -194,9 +195,9 @@ def cutRod( p, n ):
 ---
 ## 3 Bottom-up solution
 ```
-cache = array[ 0 .. n ] of -infinity
-cache[ 0 ] = 0
 def cutRod( p, n ):
+  cache = array[ 0 .. n ] of -infinity
+  cache[ 0 ] = 0
   for j = 1 to n:
     for i = 1 to j:
       cache[ j ] = max( cache[ j ], p[ i ], cache[ j-i ] )
@@ -206,7 +207,6 @@ def cutRod( p, n ):
 + Start from **smaller** subproblems, caching as we go
 + Doubly-nested **for** loop computes each *cutRod( j )*
 + Computations are **cached** for reuse
-  + Cache should be **specific** to price table *p*
 + Complexity: \`sum\_i Theta(j) = Theta(n^2)\`
 
 ---
@@ -229,18 +229,66 @@ TODO: fig?
   + Optimal substructure
   + Recursive, top-down, bottom-up
 + **Fibonacci sequence**
-+ **Longest common subsequence**
++ Longest common subsequence
 + Matrix-chain multiplication
 + Optimal binary search tree
 
 ---
 ## Fibonacci sequence
+Recall: \`F\_n = F\_(n-1) + F\_(n-2)\`, with \`F\_0 = F\_1 = 1\`
+
+**Closed-form** solution: &Theta;(1)
+
+```
+def fib( n ):
+  return round( pow( phi, n ) )
+```
+
+**Naive** top-down: \`Theta(2^n)\`
+
+```
+def fib( n ):
+  if ( n < 2 ): return 1
+  return fib( n-1 ) + fib( n-2 )
+```
 
 ---
-## Fib top-down
+## Fib with memoisation
+**Top-down** with memo: &Theta;(n)
+
+```
+c = array[ 0 .. n ] of -1
+c[ 0 ] = c[ 1 ] = 1
+def fib( n ):
+  if ( c[ n ] > 0 ): return c[ n ]
+  c[ n ] = fib( n-1 ) + fib( n-2 )
+  return c[ n ]
+```
+
+**Bottom-up** (dynamic programming): &Theta;(n)
+
+```
+def fib( n ):
+  c = array[ 0 .. n ] of -1
+  c[ 0 ] = c[ 1 ] = 1
+  for j = 2 to n:
+    c[ j ] = c[ j-1 ] + c[ j-2 ]
+  return c[ n ]
+```
+
+Subproblem **graph**?
 
 ---
-## Fib bottom-up
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
+## Outline for today
++ Dynamic programming
+  + Rod-cutting problem
+  + Optimal substructure
+  + Recursive, top-down, bottom-up
++ Fibonacci sequence
++ **Longest common subsequence**
++ Matrix-chain multiplication
++ Optimal binary search tree
 
 ---
 ## Longest common subsequence
@@ -262,6 +310,9 @@ TODO: fig?
 
 ---
 ## Matrix-chain multiplication
++ Given a **chain** of *n* matrices to multiply:
+  + \`A\_1 \* A\_2 \* A\_3 \* ... \* A\_n\`
+  + num **columns** of *left* matrix = num **rows** of *right* matrix
 
 ---
 ## Optimal substructure
