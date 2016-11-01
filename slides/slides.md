@@ -211,6 +211,8 @@ def cutRod( p, n ):
 
 ---
 ## Subproblem graph
+<div class="imgbox"><div data-markdown style="flex:4">
+
 + **Nodes** are the subproblems (e.g., *cutRod( j )*)
 + **Arrows** show *dependencies*: which other subproblems are needed to compute each node
   + Like recursion **tree**, but collapsing reused nodes
@@ -218,8 +220,9 @@ def cutRod( p, n ):
 + **Top-down**: performs a *depth-first* search down to leaves
 + **Complexity** is generally &Theta;( *#nodes* + *#arrows* )
 
->>>
-TODO: fig?
+</div><div>
+![node graph](static/img/Fig-15-4.svg)
+</div></div>
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
@@ -311,14 +314,66 @@ Subproblem **graph**?
 ---
 ## Matrix-chain multiplication
 + Given a **chain** of *n* matrices to multiply:
-  + \`A\_1 \* A\_2 \* A\_3 \* ... \* A\_n\`
+  + \`A\_1 \*\* A\_2 \*\* A\_3 \*\* ... \*\* A\_n\`
   + num **columns** of *left* matrix = num **rows** of *right* matrix
+  + \`(p\_0 xx p\_1)(p\_1 xx p\_2) ... (p\_(n-1) xx p\_n)\`
++ All **parenthesisations** are equivalent, but which **minimises** number of operations?
+  + \`(p xx q)(q xx r) = (p xx r)\`
++ **Input** is matrix dimensions \`{p\_i}_0^n\`
++ e.g.: (*5 x 500*) (*500 x 2*) (*2 x 50*):
+  + \`(A\_1 A\_2)A\_3\`: (5)(500)(2) + (5)(2)(50) = *5500* ops
+  + \`A\_1(A\_2 A\_3)\`: (500)(2)(50) + (5)(500)(50) = 175000 ops
++ **Exhaustive** search of parenthesisations takes \`Theta(2^n)\`
 
 ---
 ## Optimal substructure
++ Let *c(i, j)* be minimal **cost** (num ops) for multiplying matrices \`A\_i ... A\_j\`
++ Consider one **split** at a time (like *rod-cut*)
++ If the chain from *i* to *j* is split at *k*, the cost is:
+  + \`c(i,k) + c(k+1,j) + p\_(i-1) p\_k p\_j\` (matrix mult)
++ **Naive** solution uses *2n* recursive calls per loop: \`Theta(2^n)\`
+
+```
+def matChain( p, i, j ):
+  if (i == j): return 0
+  cost = infinity
+  for k = i to j-1:
+    cost = min( cost, matChain( p, i, k ) + matChain( p, k+1, j ) +
+      p[ i-1 ] * p[ k ] * p[ j ] )
+  return cost
+```
 
 ---
 ## Bottom-up solution
++ Index subproblems by both **start** (*i*) and **end** (*j*):
+  + Taxonomy is a 2D **grid** of nodes, not 1D line
++ Save minimal **cost** in matrix *c[i, j]*
++ Save **split** point *k* in matrix *s[i, j]*
++ E.g.: p = *[ 30, 35, 15, 5, 10, 20, 25 ]* (n=7)
+  + At (i, j) = *(2, 5)*, cost is minimised by splitting at k = *3*:
+  + c[2, 5] = *c[2, 3]* + *c[4, 5]* + *35x5x20* = 7125
+
+![matrix-chain](static/img/Fig-15-5.svg)
+
+---
+
+```
+def matChain( p ):
+  n = length(p) - 1
+  c = array[ 1 .. n ][ 1 .. n ] of 0
+  s = array[ 1 .. n-1 ][ 2 .. n ]
+  for len = 2 to n:
+    for i = 1 to n - len + 1:
+      j = i + len - 1
+      c[ i, j ] = infinity
+      for k = i .. j-1:
+        q = c[ i, k ] + c[ k+1, j ] + p[ i-1 ] * p[ k ] * p[ j ]
+        if q < c[ i, j ]:
+          c[ i, j ] = q
+          s[ i, j ] = k
+```
+
+![matrix-chain](static/img/Fig-15-5.svg)
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
