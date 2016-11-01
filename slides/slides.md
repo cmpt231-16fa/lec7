@@ -5,7 +5,17 @@
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
-## Devotional
+## Ephesians 4:1-3 <span class="ref">(NASB)</span>
+Therefore I, the **prisoner** of the Lord, implore you
+
+to **walk** in a manner **worthy of the calling** <br/>
+with which you have been called,
+
+with all **humility** and **gentleness**, with **patience**, <br/>
+showing **tolerance** for one another in love,
+
+being diligent to preserve the **unity** of the Spirit <br/>
+in the bond of **peace**.
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
