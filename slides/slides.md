@@ -318,7 +318,7 @@ Subproblem **graph**?
 + Let *c(i, j)* be min **cost** to multiply \`A\_i, ..., A\_j\`
 + Consider one **split** at a time (like *rod-cut*)
 + If the chain from *i* to *j* is split at *k*, the cost is:
-  + \`c(i,k) + c(k+1,j) + p\_(i-1) p\_k p\_j\` (for matrix mult)
+  + \`c(i,j) = c(i,k) + c(k+1,j) + p\_(i-1) p\_k p\_j\` (matrix mult)
 + **Naive** solution uses *2n* recursive calls per loop: \`Theta(2^n)\`
 
 ```
