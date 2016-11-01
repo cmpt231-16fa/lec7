@@ -63,15 +63,15 @@
 
 ---
 ## Rod-cutting problem
-+ Steel **rods** of length *i* can be sold for \`p\_i\` dollars each (1&le;i&le;n)
-+ How to **cut** a single rod of length *n* so as to maximise **revenue**?
++ Steel **rods** of length *i* sell for $\`p\_i\` each (1&le;i&le;n)
++ **Cut** a rod of length *n* so as to maximise **revenue**
   + Assume **cuts** are free
-+ e.g.: Input **price table** p = *[ 1, 5, 8, 9 ]*, rod **length** n = *4*
-  + **Exhaustive** search:
-    $9, $8+1, $1+8, $5+5, $5+1+1, $1+5+1, $1+1+5, $1+1+1+1
++ Input: **price table** p = *[ 1, 5, 8, 9 ]*
+  + So in this case rod **length** n = *4*
+  + **Exhaustive**:
+    $9, 8+1, 1+8, 5+5, 5+1+1, 1+5+1, 1+1+5, 1+1+1+1
   + **Optimal** solution: two pieces of length 2: $5+5
-+ For a given price table *p*, <br/>
-  let \`r\_n\` be optimal **revenue** for length *n*
++ For fixed *p*, let \`r\_n\` be optimal **revenue** for length *n*
   + In this case, \`r\_n = 10\`
 
 ---
