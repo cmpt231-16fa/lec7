@@ -97,16 +97,18 @@ May have **multiple** optimal solutions, with **same** \`r\_n\`
   + ...
   + cut of length n, i.e., **no** cuts: \`r\_n = p\_n\`
 + **Recurrence** relation:
-  + \`r\_n = max\_(1<=i<=n)( p[i] + r\_(n-i) )\`
+  + \`r\_n = max\_(1<=i<=n)( p\_i + r\_(n-i) )\`
 + Decomposes overall task into **subproblems** \`r\_i\`
 + Translates directly into a **recursive** solution
 
 ---
-## Requirements for dynamic programming
+## Requirements for dyn prog
 + To use **dynamic programming**, we need two properties:
 + **Optimal substructure**:
-  + Optimal solution to **subproblem** results in optimal solution to **overall** problem
-  + I.e., any optimal solution can be **composed** of solutions to subproblems
+  + Optimal solution to **subproblem** <br/>
+    results in optimal solution to **overall** problem
+  + I.e., any optimal solution can be <br/>
+    **composed** of solutions to subproblems
 + **Overlapping subproblems**:
   + Subproblems appear in **multiple** branches of recursion tree
   + Allows **reuse** of solutions, giving us efficiency
@@ -121,19 +123,20 @@ May have **multiple** optimal solutions, with **same** \`r\_n\`
     + revenue( \`B\_(n-i)\` ) &gt; revenue( \`A\_(n-i)\` )
   + Then we can **improve** on \`A\_n\` by combining this with *i*:
     + Let \`B\_n = [i, B\_(n-i)]\`, then
-    + revenue( \`B\_n\` ) = p[i] + revenue( \`B\_(n-i)\` ) <br/>
-      &gt; p[i] + revenue( \`A\_(n-i)\` ) = revenue( \`A\_n\` )
+    + rev( \`B\_n\` ) = p[i] + rev( \`B\_(n-i)\` )
+      &gt; p[i] + rev( \`A\_(n-i)\` ) = rev( \`A\_n\` )
   + This **contradicts** that \`A\_n\` was optimal for length *n*.
 + This proves **optimal substructure** for rod-cutting
 
 ---
 ## Overlapping subproblems
 + Optimal substructure shows recursive solution is **correct**
-+ To get **efficiency** of dynamic programming, we also need to **reuse** subproblems
++ To get **efficiency** of dynamic programming, <br/>
+  we also need to **reuse** subproblems
 + **Taxonomy** of subproblems:
   + Index subproblems by **length** of rod (*n*)
 + **Reuse** solutions to subproblems:
-  + A solution for rods of length *5* works **anywhere** within a longer rod
+  + A solution for length *5* works **anywhere** within longer rods
     + Only depends on **length**, not **location**
   + So solutions to **small** rods like *n=2* can be reused many times
     + Saves a **lot** of computation!
@@ -152,7 +155,7 @@ May have **multiple** optimal solutions, with **same** \`r\_n\`
 + Optimal binary search tree
 
 ---
-## 1 Recursive top-down
+## (1) Recursive top-down
 ```
 def cutRod( p, n ):
   if ( n < 1 ): return 0
@@ -169,16 +172,16 @@ def cutRod( p, n ):
 + E.g., *cutRod( p, 2 )* run many times
 
 ---
-## 2 Top-down w/memoisation
+## (2) Top-down w/memoisation
 ```
-cache = array[ 0 .. n ] of -infinity
-cache[ 0 ] = 0
+revenue = array[ 0 .. n ] of -infinity
+revenue [ 0 ] = 0
 def cutRod( p, n ):
-  if cache[ n ] != -infinity:
-    return cache[ n ]
+  if revenue[ n ] != -infinity:
+    return revenue[ n ]
   for i = 1 to n:
-    cache[ n ] = max( cache[ n ], p[ i ] + cutRod( p, n-i ) )
-  return cache[ n ]
+    revenue[ n ] = max( revenue[ n ], p[ i ] + cutRod( p, n-i ) )
+  return revenue[ n ]
 ```
 
 + **Memoisation**: cache previously-computed results
@@ -189,15 +192,15 @@ def cutRod( p, n ):
 + Can we eliminate the **recursion**?
 
 ---
-## 3 Bottom-up solution
+## (3) Bottom-up (dyn prog)
 ```
 def cutRod( p, n ):
-  cache = array[ 0 .. n ] of -infinity
-  cache[ 0 ] = 0
+  revenue = array[ 0 .. n ] of -infinity
+  revenue[ 0 ] = 0
   for j = 1 to n:
     for i = 1 to j:
-      cache[ j ] = max( cache[ j ], p[ i ], cache[ j-i ] )
-  return cache[ n ]
+      revenue[ j ] = max( revenue[ j ], p[ i ] + revenue[ j-i ] )
+  return revenue[ n ]
 ```
 
 + Start from **smaller** subproblems, caching as we go
