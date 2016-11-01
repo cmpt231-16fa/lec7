@@ -77,35 +77,26 @@
 ---
 ## Rod-cut: example
 
-| i |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |
-|---|----|----|----|----|----|----|----|----|
-| p |  1 |  5 |  8 |  9 | 10 | 17 | 17 | 20 |
+| i: |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |
+|----|----|----|----|----|----|----|----|----|
+| p: |  1 |  5 |  8 |  9 | 10 | 17 | 17 | 20 |
 
-| n | `r\_n` |   Solution  |
-|---|--------|-------------|
-| 0 |    0   | (base case) |
-| 1 |    1   | 1 (no cuts) |
-| 2 |    5   | 2 (no cuts) |
-| 3 |    8   | 3 (no cuts) |
-| 4 |   10   | 2+2         |
-| 5 |   13   | 2+3         |
-| 6 |   17   | 6 (no cuts) |
-| 7 |   18   | 1+6 or 2+2+3|
-| 8 |   22   | 2+6         |
+|     n:    |    0   | 1 | 2 | 3 |  4  |  5  |  6 |      7     |  8  |
+| \`r\_n:\` |    0   | 1 | 5 | 8 |  10 |  13 | 17 |     18     |  22 |
+| cuts:     | (base) | 1 | 2 | 3 | 2+2 | 2+3 |  6 | 1+6, 2+2+3 | 2+6 |
 
 May have **multiple** optimal solutions, with **same** \`r\_n\`
-
-Optimise **revenue** \`r\_n\` by considering possibilities for the **leftmost** cut:
-+ **no cuts** (i.e., \`r\_n = p\_n\`)
-+ cut of length 1: \`r\_n = p\_1 + r\_(n-1)\`
-+ cut of length 2: \`r\_n = p\_2 + r\_(n-2)\`
-+ etc.
 
 ---
 ## Rod-cut: substructure
 + Optimise **one cut** at a time, left to right
   + Assume the first piece **won't** be cut again
-+ **Recurse** (or iterate) on second piece:
++ Optimise **revenue** \`r\_n\` by considering possible cuts:
+  + cut of length 1: \`r\_n = p\_1 + r\_(n-1)\`
+  + cut of length 2: \`r\_n = p\_2 + r\_(n-2)\`
+  + ...
+  + cut of length n, i.e., **no** cuts: \`r\_n = p\_n\`
++ **Recurrence** relation:
   + \`r\_n = max\_(1<=i<=n)( p[i] + r\_(n-i) )\`
 + Decomposes overall task into **subproblems** \`r\_i\`
 + Translates directly into a **recursive** solution
