@@ -96,8 +96,7 @@ May have **multiple** optimal solutions, with **same** \`r\_n\`
   + cut of length 2: \`r\_n = p\_2 + r\_(n-2)\`
   + ...
   + cut of length n, i.e., **no** cuts: \`r\_n = p\_n\`
-+ **Recurrence** relation:
-  + \`r\_n = max\_(1<=i<=n)( p\_i + r\_(n-i) )\`
++ **Recurrence** relation: \`r\_n = max\_(1<=i<=n)( p\_i + r\_(n-i) )\`
 + Decomposes overall task into **subproblems** \`r\_i\`
 + Translates directly into a **recursive** solution
 
