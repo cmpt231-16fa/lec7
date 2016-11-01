@@ -96,10 +96,10 @@ May have **multiple** optimal solutions, with **same** \`r\_n\`
 + Optimise **one cut** at a time, left to right
   + Assume the first piece **won't** be cut again
 + Optimise **revenue** \`r\_n\` by considering possible cuts:
-  + cut of length 1: \`r\_n = p\_1 + r\_(n-1)\`
-  + cut of length 2: \`r\_n = p\_2 + r\_(n-2)\`
+  + cut of length *1*: \`r\_n = p\_1 + r\_(n-1)\`
+  + cut of length *2*: \`r\_n = p\_2 + r\_(n-2)\`
   + ...
-  + cut of length n, i.e., **no** cuts: \`r\_n = p\_n\`
+  + cut of length *n*, i.e., **no** cuts: \`r\_n = p\_n\`
 + **Recurrence** relation: \`r\_n = max\_(1<=i<=n)( p\_i + r\_(n-i) )\`
 + Decomposes overall task into **subproblems** \`r\_i\`
 + Translates directly into a **recursive** solution
