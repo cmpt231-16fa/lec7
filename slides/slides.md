@@ -484,13 +484,13 @@ LCS( "*spanking*", "*amputation*" ):
   + **Concatenating** shortest paths *u* &rarr; *w* and *w* &rarr; *v*
   + Yields a **shortest** path from *u* to *v* through *w*
 
-<div class="imgbox" data-markdown><div style="flex:3">
-+ What about **longest** path *u* &rarr; *v*?
-  + Obviously need to rule out **cycles**
-  + **Concatenate** *longest(u, w)* + *longest(w, v)*?
-  + **Doesn't** work!  Might not be **longest** *u* &rarr; *v*,
-  + and might have **cycles**
-</div><div>
+<div class="imgbox"><div style="flex:3"><ul>
+<li> What about <strong>longest</strong> path <em>u</em> &rarr; <em>v</em>?</li>
+  <li> Obviously need to rule out <strong>cycles</strong></li>
+  <li> <strong>Concatenate</strong> <em>longest(u, w)</em> + <em>longest(w, v)</em>?</li>
+  <li> <strong>Doesn't</strong> work!  Might not be <strong>longest</strong> <em>u</em> &rarr; <em>v</em>,</li>
+  <li> and might have <strong>cycles</strong></li>
+</ul></div><div>
 ![Counter-example for longest path](static/img/Fig-15-6.svg)
 </div></div>
 
