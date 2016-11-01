@@ -527,8 +527,6 @@ LCS( "*spanking*", "*amputation*" ):
 | p |   -  | 0.15 | 0.10 | 0.05 | 0.10 | 0.20 |
 | q | 0.05 | 0.10 | 0.05 | 0.05 | 0.05 | 0.10 |
 
-\`e(i,j) = min\_(r=i)^j [ e(i, r-1) + e(r+1, j) + w(i,j) ]\`
-
 ![Optimal BST example](static/img/Fig-15-10.svg)
 
 ---
