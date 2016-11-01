@@ -28,11 +28,10 @@
 + **Search space**: may be *discrete* or *continuous*
   + **Dimension** of space may be *low* or very *high* (\`10^6\` or more)
 + **Goal** function: may be *analytic* or a *black-box*
-  + Can we compute its *derivatives*?
+  + Are its *derivatives* computable?
 
-<div class="imgbox"><div style="flex:3">
-<strong>Exhaustive</strong> search usually
-way too <em>slow</em>
+<div class="imgbox"><div>
+<strong>Exhaustive</strong> search is usually way too <em>slow</em>
 </div><div>
 ![Saddle point between maxima, [Wikimedia](https://commons.wikimedia.org/wiki/File%3ASaddle_Point_between_maxima.svg)](static/img/Saddle_Point_between_maxima.svg)
 </div></div>
@@ -74,7 +73,7 @@ way too <em>slow</em>
   + **Exhaustive**:
     $9, 8+1, 1+8, 5+5, 5+1+1, 1+5+1, 1+1+5, 1+1+1+1
   + **Optimal** solution: two pieces of length 2: $5+5
-+ For fixed *p*, let \`r\_n\` be optimal **revenue** for length *n*
++ For fixed *p*, let \`r\_n\` be the optimal **revenue** for length *n*
   + In this case, \`r\_n = 10\`
 
 ---
@@ -84,10 +83,10 @@ way too <em>slow</em>
 |----|----|----|----|----|----|----|----|----|
 | p: |  1 |  5 |  8 |  9 | 10 | 17 | 17 | 20 |
 
-|   n:  |    0   | 1 | 2 | 3 |  4  |  5  |  6 |      7     |  8  |
-|-------|--------|---|---|---|-----|-----|----|------------|-----|
-| r[n]: |    0   | 1 | 5 | 8 |  10 |  13 | 17 |     18     |  22 |
-| cuts: | (base) | 1 | 2 | 3 | 2+2 | 2+3 |  6 | 1+6, 2+2+3 | 2+6 |
+|   n:  | 0 | 1 | 2 | 3 |  4  |  5  |  6 |      7     |  8  |
+|-------|---|---|---|---|-----|-----|----|------------|-----|
+| r[n]: | 0 | 1 | 5 | 8 |  10 |  13 | 17 |     18     |  22 |
+| cuts: | 0 | 1 | 2 | 3 | 2+2 | 2+3 |  6 | 1+6, 2+2+3 | 2+6 |
 
 May have **multiple** optimal solutions, with **same** \`r\_n\`
 
@@ -461,7 +460,7 @@ def LCSLength( x, y ):
 
 ---
 ## LCS example
-What do "*spanking*" and "*amputation*" have in common? 
+What do "*spanking*" and "*amputation*" have in common?
 
 ![LCS example: spanking, amputation](static/img/LCS-spanking-amputation.png)
 <!-- .element: style="width: 50%" -->
