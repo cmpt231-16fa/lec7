@@ -348,9 +348,39 @@ Subproblem **graph**?
 + Let *c[i, j]* = length of LCS of *X* and *Y*.  Then
 + \`c[i,j] = { (0, if i=0 or j=0), (c[i-1,j-1]+1, if i,j>0 and x\_i = y\_j),
   (max(c[i-1,j],c[j,i-1]), if i,j>0 and x\_i != y\_j) :} \`
++ LCS only gets **extended** by a character in case *2*
 + e.g., LCS("bozo", "bat")
 
 ![LCS example: bozo, bat](static/img/LCS-bozo-bat.png)
+
+---
+## LCS solution
+```
+def LCSLength( x, y ):
+  ( m, n ) = ( length( x ), length( y ) )
+  b[ 1 .. m ][ 1 .. n ] = new array
+  c[ 0 .. m ][ 0 .. n ] = 0             # case 1 (init)
+
+  for i = 1 to m:
+    for j = 1 to n:
+      if x[ i ] == y[ j ]:              # case 2
+        c[ i, j ] = c[ i-1, j-1 ] + 1
+        b[ i, j ] = "UL"
+      elif c[ i-1, j ] >= c[ i, j-1 ]:  # case 3a
+        c[ i, j ] = c[ i-1, j ]
+        b[ i, j ] = "U"
+      else:                             # case 3b
+        c[ i, j ] = c[ i, j-1 ]
+        b[ i, j ] = "L"
+```
+
+**Complexity**: *&Theta;(mn)*
+
+---
+## LCS example
+LCS( "*spanking*", "*amputation*" ):
+
+![LCS example: spanking, amputation](static/img/LCS-spanking-amputation.png)
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
