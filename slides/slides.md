@@ -125,8 +125,8 @@ May have **multiple** optimal solutions, with **same** \`r\_n\`
     + revenue( \`B\_(n-i)\` ) &gt; revenue( \`A\_(n-i)\` )
   + Then we can **improve** on \`A\_n\` by combining this with *i*:
     + Let \`B\_n = [i, B\_(n-i)]\`, then
-    + rev( \`B\_n\` ) = p[i] + rev( \`B\_(n-i)\` )
-      &gt; p[i] + rev( \`A\_(n-i)\` ) = rev( \`A\_n\` )
+    + rev( \`B\_n\` ) *=* p[i] + rev( \`B\_(n-i)\` )
+      *&gt;* p[i] + rev( \`A\_(n-i)\` ) *=* rev( \`A\_n\` )
   + This **contradicts** that \`A\_n\` was optimal for length *n*.
 + This proves **optimal substructure** for rod-cutting
 
@@ -190,7 +190,7 @@ def cutRod( p, n ):
   + Need to **reset** cache for each new price table *p*
 + *cutRod( p, n )* only computed **once** for each *n*
   + if result not in cache, takes *&Theta;(n)* to compute
-  + Complexity: \`sum\_i Theta(i) = Theta(n^2)\`
+  + **Complexity**: \`sum\_i Theta(i) = Theta(n^2)\`
 + Can we eliminate the **recursion**?
 
 ---
@@ -208,14 +208,14 @@ def cutRod( p, n ):
 + Start from **smaller** subproblems, caching as we go
 + Doubly-nested **for** loop computes each *cutRod( j )*
 + **Sequence** subproblems to satisfy dependencies
-+ Complexity: \`sum\_i Theta(j) = Theta(n^2)\`
++ **Complexity**: \`sum\_i Theta(j) = Theta(n^2)\`
 
 ---
 ## Subproblem graph
 <div class="imgbox"><div style="flex:4"><ul>
 <li> <strong>Nodes</strong> are the subproblems (e.g., <em>cutRod( j )</em>)</li>
 <li> <strong>Arrows</strong> show <em>dependencies</em>: <ul>
-  <li>Which other nodes are needed to compute each node</li>
+  <li>Other nodes **needed** to compute this node</li>
   <li> Like recursion <strong>tree</strong>, but collapsing reused nodes </li>
   </ul></li>
 <li> <strong>Top-down</strong>: performs a <em>depth-first</em> search down to leaves</li>
@@ -394,7 +394,7 @@ def matChain( p ):
   and *(b)* \`Z\_(k-1)\` is an **LCS** of \`X\_(m-1)\` and \`Y\_(n-1)\`
 + **Theorem (part 2)**: If \`x\_m != y\_n\` and \`z\_k != x\_m\`, <br/>
   then *Z* is an **LCS** of \`X\_(m-1)\` and Y
-+ **(part 3)**: If \`x\_m != y\_n\` and \`z\_k != y\_n\`, <br/>
++ **Theorem (part 3)**: If \`x\_m != y\_n\` and \`z\_k != y\_n\`, <br/>
   then *Z* is an **LCS** of X and \`Y\_(n-1)\`
 + This theorem says that an LCS of two sequences contains
   (as prefix) an LCS of prefixes of the two sequences
@@ -437,33 +437,33 @@ def matChain( p ):
 
 ---
 ## LCS solution
-```
+
+<div class="imgbox"><div>
+<pre><code data-trim>
 def LCSLength( x, y ):
   ( m, n ) = ( length( x ), length( y ) )
   b[ 1 .. m ][ 1 .. n ] = new array
-  c[ 0 .. m ][ 0 .. n ] = 0             # case 1 (init)
+  c[ 0 .. m ][ 0 .. n ] = 0
 
   for i = 1 .. m:
     for j = 1 .. n:
-      if x[ i ] == y[ j ]:              # case 2: add a letter
+      if x[ i ] == y[ j ]:
         c[ i, j ] = c[ i-1, j-1 ] + 1
         b[ i, j ] = "UL"
-      elif c[ i-1, j ] >= c[ i, j-1 ]:  # case 3a: go up a row
+      elif c[ i-1, j ] >= c[ i, j-1 ]:
         c[ i, j ] = c[ i-1, j ]
         b[ i, j ] = "U"
-      else:                             # case 3b: go left a col
+      else:
         c[ i, j ] = c[ i, j-1 ]
         b[ i, j ] = "L"
-```
+</code></pre>
 
 **Complexity**: *&Theta;(mn)*
-
----
-## LCS example
+</div><div>
 What do "*spanking*" and "*amputation*" have in common?
 
 ![LCS example: spanking, amputation](static/img/LCS-spanking-amputation.png)
-<!-- .element: style="width: 50%" -->
+</div></div>
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
