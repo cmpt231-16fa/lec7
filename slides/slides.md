@@ -295,9 +295,62 @@ Subproblem **graph**?
 
 ---
 ## Longest common subsequence
++ Given two **sequences**: \`X={x\_i}\_1^m, Y={y\_i}\_1^n\`
+  + Find longest **subsequence** common to both X and Y
+  + Need not be **consecutive**, but must be in **order**
++ E.g.: LCS("*springtime*", "*pioneer*") = "*pine*"
+  + LCS("*horseback*", "*snowflake*") = "*oak*"
+  + LCS("*heroically*", "*scholarly*") = "*holly*"
++ **Exhaustive** check:
+  + for each of the \`2^m\` **subsequences** of *X*,
+  + **check** (in &Theta;(n) time) if it's a subsequence of *Y*
 
 ---
 ## Optimal substructure
++ Let \`X\_k = {x\_i}\_1^k\` represent a **prefix** of *X*
++ Let \`Z = {z\_i}\_1^k\` be any LCS of *X* and *Y*
++ **Theorem** (part 1): If \`x\_m = y\_n\`, then \`z\_k = x\_m = y\_n\`
+  and \`Z\_(k-1)\` is an **LCS** of \`X\_(m-1)\` and \`Y\_(n-1)\`
++ **(part 2)**: If \`x\_m != y\_n\` and \`z\_k != x\_m\`, then
+  *Z* is an **LCS** of \`X\_(m-1)\` and Y
++ **(part 3)**: If \`x\_m != y\_n\` and \`z\_k != y\_n\`, then
+  *Z* is an **LCS** of X and \`Y\_(n-1)\`
++ This theorem demonstrates that an LCS of two sequences contains
+  (as a prefix) an LCS of prefixes of the two sequences
+
+---
+## Proof of optimal substruct (part 1)
++ Assume *Z* is an LCS of *X* and *Y*, and \`x\_m = y\_n\`
++ **Part 1a**: Show \`z\_k = x\_m = y\_n\`.
+  + Assume **not**: then let \`Z' = (z\_1, ..., z\_k, x\_m)\`.
+  + *Z'* is also a subsequence of *X* and *Y*, and it's **longer** than *Z*
+  + This **contradicts** assumption that *Z* was an LCS of *X* and *Y*
++ **Part 1b**: Show \`Z\_(k-1)\` is an LCS of \`X\_(m-1)\` and \`Y\_(n-1)\`.
+  + It's clearly a common subsequence (it just drops \`z\_k\`)
+  + If there existed a **longer** subseq *W* (length &gt; *k-1*), <br/>
+    then create *W'* by **appending** \`x\_m\` to *W*
+  + Now *W'* is a subseq of *X* and *Y*, and it's **longer** than *Z*
+    (length &gt; *k*)
+  + This **contradicts** assumption that *Z* was an LCS of *X* and *Y*
+
+---
+## Proof of optimal substruct (parts 2-3)
++ Assume *Z* is an LCS of *X* and *Y*, and \`x\_m != y\_n\`
++ **Part 2** (\`z\_k != x\_m\`): Show Z is an LCS of of \`X\_(m-1)\` and Y.
+  + Let *W* be a subseq of \`X\_(m-1)\` and Y, with length &gt; *k*
+  + Then *W* is also a subseq of *X* and *Y*, **longer** than *Z*
+  + This **contradicts** assumption that *Z* was an LCS of *X* and *Y*
++ **Part 3** (\`z\_k != y\_n\`) is **symmetric**
++ This concludes proof of **optimal substructure** for LCS
+
+---
+## LCS recurrence
++ Let *c[i, j]* = length of LCS of *X* and *Y*.  Then
++ \`c[i,j] = { (0, if i=0 or j=0), (c[i-1,j-1]+1, if i,j>0 and x\_i = y\_j),
+  (max(c[i-1,j],c[j,i-1]), if i,j>0 and x\_i != y\_j) :} \`
++ e.g., LCS("bozo", "bat")
+
+![LCS example: bozo, bat](static/img/LCS-bozo-bat.png)
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
