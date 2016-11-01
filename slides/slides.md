@@ -205,7 +205,7 @@ def cutRod( p, n ):
 
 + Start from **smaller** subproblems, caching as we go
 + Doubly-nested **for** loop computes each *cutRod( j )*
-+ Computations are **cached** for reuse
++ **Sequence** subproblems to satisfy dependencies
 + Complexity: \`sum\_i Theta(j) = Theta(n^2)\`
 
 ---
