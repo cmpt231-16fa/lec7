@@ -257,7 +257,7 @@ def fib( n ):
 ```
 
 ---
-## Fib with memoisation
+## Fibonacci: dynamic prog
 **Top-down** with memo: &Theta;(n)
 
 ```
@@ -301,20 +301,21 @@ Subproblem **graph**?
   + \`A\_1 \*\* A\_2 \*\* A\_3 \*\* ... \*\* A\_n\`
   + num **columns** of *left* matrix = num **rows** of *right* matrix
   + \`(p\_0 xx p\_1)(p\_1 xx p\_2) ... (p\_(n-1) xx p\_n)\`
-+ All **parenthesisations** are equivalent, but which **minimises** number of operations?
-  + \`(p xx q)(q xx r) = (p xx r)\`
-+ **Input** is matrix dimensions \`{p\_i}_0^n\`
++ All **parenthesisations** are equivalent, <br/>
+  but which **minimises** number of operations?
+  + Recall dimensions of product matrix: \`(p xx q)(q xx r) = (p xx r)\`
++ **Input** is a list of matrix dimensions: \`{p\_i}\_0^n\`
 + e.g.: (*5 x 500*) (*500 x 2*) (*2 x 50*):
   + \`(A\_1 A\_2)A\_3\`: (5)(500)(2) + (5)(2)(50) = *5500* ops
-  + \`A\_1(A\_2 A\_3)\`: (500)(2)(50) + (5)(500)(50) = 175000 ops
+  + \`A\_1(A\_2 A\_3)\`: (500)(2)(50) + (5)(500)(50) = *175000* ops
 + **Exhaustive** search of parenthesisations takes \`Theta(2^n)\`
 
 ---
 ## Optimal substructure
-+ Let *c(i, j)* be minimal **cost** (num ops) for multiplying matrices \`A\_i ... A\_j\`
++ Let *c(i, j)* be min **cost** to multiply \`A\_i, ..., A\_j\`
 + Consider one **split** at a time (like *rod-cut*)
 + If the chain from *i* to *j* is split at *k*, the cost is:
-  + \`c(i,k) + c(k+1,j) + p\_(i-1) p\_k p\_j\` (matrix mult)
+  + \`c(i,k) + c(k+1,j) + p\_(i-1) p\_k p\_j\` (for matrix mult)
 + **Naive** solution uses *2n* recursive calls per loop: \`Theta(2^n)\`
 
 ```
@@ -322,8 +323,8 @@ def matChain( p, i, j ):
   if (i == j): return 0
   cost = infinity
   for k = i to j-1:
-    cost = min( cost, matChain( p, i, k ) + matChain( p, k+1, j ) +
-      p[ i-1 ] * p[ k ] * p[ j ] )
+    cost = min( cost,
+      matChain( p, i, k ) + matChain( p, k+1, j ) + p[ i-1 ] * p[ k ] * p[ j ] )
   return cost
 ```
 
@@ -333,8 +334,7 @@ def matChain( p, i, j ):
   + Taxonomy is a 2D **grid** of nodes, not 1D line
 + Save minimal **cost** in matrix *c[i, j]*
 + Save **split** point *k* in matrix *s[i, j]*
-+ E.g.: p = *[ 30, 35, 15, 5, 10, 20, 25 ]* (n=7)
-  + At (i, j) = *(2, 5)*, cost is minimised by splitting at k = *3*:
++ p = *[ 30, 35, 15, 5, 10, 20, 25 ]* (n=7), at (i, j) = *(2, 5)*, k = *3*:
   + c[2, 5] = *c[2, 3]* + *c[4, 5]* + *35x5x20* = 7125
 
 ![matrix-chain](static/img/Fig-15-5.svg)
@@ -387,14 +387,14 @@ def matChain( p ):
 ## Optimal substructure
 + Let \`X\_k = {x\_i}\_1^k\` represent a **prefix** of *X*
 + Let \`Z = {z\_i}\_1^k\` be any LCS of *X* and *Y*
-+ **Theorem** (part 1): If \`x\_m = y\_n\`, then \`z\_k = x\_m = y\_n\`
++ **Theorem (part 1)**: If \`x\_m = y\_n\`, then <br/> \`z\_k = x\_m = y\_n\`
   and \`Z\_(k-1)\` is an **LCS** of \`X\_(m-1)\` and \`Y\_(n-1)\`
-+ **(part 2)**: If \`x\_m != y\_n\` and \`z\_k != x\_m\`, then
++ **(part 2)**: If \`x\_m != y\_n\` and \`z\_k != x\_m\`, then <br/>
   *Z* is an **LCS** of \`X\_(m-1)\` and Y
-+ **(part 3)**: If \`x\_m != y\_n\` and \`z\_k != y\_n\`, then
++ **(part 3)**: If \`x\_m != y\_n\` and \`z\_k != y\_n\`, then <br/>
   *Z* is an **LCS** of X and \`Y\_(n-1)\`
-+ This theorem demonstrates that an LCS of two sequences contains
-  (as a prefix) an LCS of prefixes of the two sequences
++ This theorem says that an LCS of two sequences contains
+  (as prefix) an LCS of prefixes of the two sequences
 
 ---
 ## Proof of optimal substruct (part 1)
