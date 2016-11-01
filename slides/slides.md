@@ -22,17 +22,20 @@
 
 ---
 ## Optimisation
-+ Large class of real-world problems consisting of
-  + Find the **max** (or min) value of some **goal** (cost) function
++ Large class of **real-world** problems consisting of
+  + Finding the **max** (or min) value of some **goal** (cost) function
     <br/> over some **search space**
 + **Search space**: may be *discrete* or *continuous*
-  + **Dimension** of space may be *low* or very *high* (`10^6` or more)
+  + **Dimension** of space may be *low* or very *high* (\`10^6\` or more)
 + **Goal** function: may be *analytic* or a *black-box*
   + Can we compute its *derivatives*?
-+ **Exhaustive** search usually way too *slow*
 
+<div class="imgbox"><div style="flex:3">
+<strong>Exhaustive</strong> search usually
+way too <em>slow</em>
+</div><div>
 ![Saddle point between maxima, [Wikimedia](https://commons.wikimedia.org/wiki/File%3ASaddle_Point_between_maxima.svg)](static/img/Saddle_Point_between_maxima.svg)
-<!-- .element: style="height: 7rem" -->
+</div></div>
 
 ---
 ## Dynamic programming
