@@ -441,7 +441,7 @@ def matChain( p ):
 <div class="imgbox"><div>
 <pre><code data-trim>
 def LCSLength( x, y ):
-  ( m, n ) = ( length( x ), length( y ) )
+  ( m, n ) = length( x, y )
   b[ 1 .. m ][ 1 .. n ] = new array
   c[ 0 .. m ][ 0 .. n ] = 0
 
@@ -531,6 +531,19 @@ What do "*spanking*" and "*amputation*" have in common?
 | q | 0.05 | 0.10 | 0.05 | 0.05 | 0.05 | 0.10 |
 
 ![Optimal BST example](static/img/Fig-15-10.svg)
+
+---
+## Complexity of dyn prog
++ Optimal substructure **varies** according to
+  + **Structure** of subproblem taxonomy (1D, 2D, etc)
+  + How many **subproblems** used in solution
+  + How many **choices** to consider per task
++ **Complexity**: count **edges** in subproblem graph
++ **Rod-cut**: *1D* graph, *1* subprob, *n* choices: \`Theta(n^2)\`
+  + **Fibonacci**: *1D* graph, *2* subprobs, no choices (not opt): &Theta;(n)
+  + **Matrix-chain**: *2D* graph, *2* subprobs, *j-i* choices: \`Theta(n^3)\`
+  + **LCS**: *2D* graph, *1* subprob, *&le;2* choices: &Theta;(mn)
+  + **Optimal BST**: *2D* graph, *2* subprobs, *j-i+1* choices: \`Theta(n^3)\`
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
