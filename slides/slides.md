@@ -117,7 +117,7 @@ May have **multiple** optimal solutions, with **same** \`r\_n\`
   + Allows **reuse** of solutions, giving us efficiency
 
 ---
-## Prove optimal substructure
+## Rod-cut: optim substruct
 + Let \`A\_n\` be an optimal solution for **entire** length *n*
   + Let *i* be location of **first** cut in \`A\_n\`
   + Let \`A\_(n-i)\` be the **remaining** cuts in \`A\_n\`
@@ -215,13 +215,13 @@ def cutRod( p, n ):
 ## Subproblem graph
 <div class="imgbox"><div style="flex:4"><ul>
 <li> <strong>Nodes</strong> are the subproblems (e.g., <em>cutRod( j )</em>)</li>
-<li> <strong>Arrows</strong> show <em>dependencies</em>:
-  which other subproblems are needed to compute each node <ul>
+<li> <strong>Arrows</strong> show <em>dependencies</em>: <ul>
+  <li>Which other nodes are needed to compute each node</li>
   <li> Like recursion <strong>tree</strong>, but collapsing reused nodes </li>
   </ul></li>
-<li> <strong>Bottom-up</strong>: must <em>sequence</em> nodes
-  so all dependencies are resolved before reaching a node</li>
 <li> <strong>Top-down</strong>: performs a <em>depth-first</em> search down to leaves</li>
+<li> <strong>Bottom-up</strong>: must <em>sequence</em> nodes
+  to resolve dependencies before reaching a node</li>
 <li> <strong>Complexity</strong> is generally &Theta;( <em>#nodes</em> + <em>#arrows</em> )</li>
 </ul></div><div>
 ![node graph](static/img/Fig-15-4.svg)
