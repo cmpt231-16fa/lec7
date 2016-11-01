@@ -399,20 +399,21 @@ def matChain( p ):
 ---
 ## Proof of optimal substruct (part 1)
 + Assume *Z* is an LCS of *X* and *Y*, and \`x\_m = y\_n\`
-+ **Part 1a**: Show \`z\_k = x\_m = y\_n\`.
-  + Assume **not**: then let \`Z' = (z\_1, ..., z\_k, x\_m)\`.
++ **Part 1a**: Show \`z\_k = x\_m = y\_n\`:
+  + Assume **not**: then create *Z'* by **appending** \`x\_m\` to *Z*:
+    + i.e., let \`Z' = (z\_1, ..., z\_k, x\_m)\`
   + *Z'* is also a subsequence of *X* and *Y*, and it's **longer** than *Z*
   + This **contradicts** assumption that *Z* was an LCS of *X* and *Y*
-+ **Part 1b**: Show \`Z\_(k-1)\` is an LCS of \`X\_(m-1)\` and \`Y\_(n-1)\`.
-  + It's clearly a common subsequence (it just drops \`z\_k\`)
++ **Part 1b**: Show \`Z\_(k-1)\` is an LCS of \`X\_(m-1)\` and \`Y\_(n-1)\`:
+  + It's certainly a common subsequence (it just drops \`z\_k\`)
   + If there existed a **longer** subseq *W* (length &gt; *k-1*), <br/>
-    then create *W'* by **appending** \`x\_m\` to *W*
+    then we could create *W'* by **appending** \`x\_m\` to *W*
   + Now *W'* is a subseq of *X* and *Y*, and it's **longer** than *Z*
     (length &gt; *k*)
   + This **contradicts** assumption that *Z* was an LCS of *X* and *Y*
 
 ---
-## Proof of optimal substruct (parts 2-3)
+## Proof of opt substruct (parts 2-3)
 + Assume *Z* is an LCS of *X* and *Y*, and \`x\_m != y\_n\`
 + **Part 2** (\`z\_k != x\_m\`): Show Z is an LCS of of \`X\_(m-1)\` and Y.
   + Let *W* be a subseq of \`X\_(m-1)\` and Y, with length &gt; *k*
@@ -424,8 +425,8 @@ def matChain( p ):
 ---
 ## LCS recurrence
 + Let *c[i, j]* = length of LCS of *X* and *Y*.  Then
-+ \`c[i,j] = { (0, if i=0 or j=0), (c[i-1,j-1]+1, if i,j>0 and x\_i = y\_j),
-  (max(c[i-1,j],c[j,i-1]), if i,j>0 and x\_i != y\_j) :} \`
++ \`c[i,j] = { (0, if i=0 or j=0), (c[i-1,j-1]+1, if (i,j)>0 and x\_i = y\_j),
+  (max(c[i-1,j],c[j,i-1]), if (i,j)>0 and x\_i != y\_j) :} \`
 + LCS only gets **extended** by a character in case *2*
 + e.g., LCS("bozo", "bat")
 
