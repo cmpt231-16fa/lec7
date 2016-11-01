@@ -15,8 +15,9 @@
   + Optimal **substructure**
   + Recursive, top-down, **bottom-up** solutions
 + **Fibonacci** sequence
-+ Longest common **subsequence**
 + **Matrix-chain** multiplication
++ Longest common **subsequence**
++ Shortest unweighted **path**
 + Optimal **binary search tree**
 
 ---
@@ -53,8 +54,9 @@
   + **Optimal substructure**
   + Recursive, top-down, bottom-up
 + Fibonacci sequence
-+ Longest common subsequence
 + Matrix-chain multiplication
++ Longest common subsequence
++ Shortest unweighted path
 + Optimal binary search tree
 
 ---
@@ -151,8 +153,9 @@ Optimise **revenue** \`r\_n\` by considering possibilities for the **leftmost** 
   + Optimal substructure
   + **Recursive, top-down, bottom-up solutions**
 + Fibonacci sequence
-+ Longest common subsequence
 + Matrix-chain multiplication
++ Longest common subsequence
++ Shortest unweighted path
 + Optimal binary search tree
 
 ---
@@ -232,8 +235,9 @@ def cutRod( p, n ):
   + Optimal substructure
   + Recursive, top-down, bottom-up
 + **Fibonacci sequence**
-+ Longest common subsequence
 + Matrix-chain multiplication
++ Longest common subsequence
++ Shortest unweighted path
 + Optimal binary search tree
 
 ---
@@ -289,8 +293,85 @@ Subproblem **graph**?
   + Optimal substructure
   + Recursive, top-down, bottom-up
 + Fibonacci sequence
-+ **Longest common subsequence**
++ **Matrix-chain multiplication**
++ Longest common subsequence
++ Shortest unweighted path
++ Optimal binary search tree
+
+---
+## Matrix-chain multiplication
++ Given a **chain** of *n* matrices to multiply:
+  + \`A\_1 \*\* A\_2 \*\* A\_3 \*\* ... \*\* A\_n\`
+  + num **columns** of *left* matrix = num **rows** of *right* matrix
+  + \`(p\_0 xx p\_1)(p\_1 xx p\_2) ... (p\_(n-1) xx p\_n)\`
++ All **parenthesisations** are equivalent, but which **minimises** number of operations?
+  + \`(p xx q)(q xx r) = (p xx r)\`
++ **Input** is matrix dimensions \`{p\_i}_0^n\`
++ e.g.: (*5 x 500*) (*500 x 2*) (*2 x 50*):
+  + \`(A\_1 A\_2)A\_3\`: (5)(500)(2) + (5)(2)(50) = *5500* ops
+  + \`A\_1(A\_2 A\_3)\`: (500)(2)(50) + (5)(500)(50) = 175000 ops
++ **Exhaustive** search of parenthesisations takes \`Theta(2^n)\`
+
+---
+## Optimal substructure
++ Let *c(i, j)* be minimal **cost** (num ops) for multiplying matrices \`A\_i ... A\_j\`
++ Consider one **split** at a time (like *rod-cut*)
++ If the chain from *i* to *j* is split at *k*, the cost is:
+  + \`c(i,k) + c(k+1,j) + p\_(i-1) p\_k p\_j\` (matrix mult)
++ **Naive** solution uses *2n* recursive calls per loop: \`Theta(2^n)\`
+
+```
+def matChain( p, i, j ):
+  if (i == j): return 0
+  cost = infinity
+  for k = i to j-1:
+    cost = min( cost, matChain( p, i, k ) + matChain( p, k+1, j ) +
+      p[ i-1 ] * p[ k ] * p[ j ] )
+  return cost
+```
+
+---
+## Bottom-up solution
++ Index subproblems by both **start** (*i*) and **end** (*j*):
+  + Taxonomy is a 2D **grid** of nodes, not 1D line
++ Save minimal **cost** in matrix *c[i, j]*
++ Save **split** point *k* in matrix *s[i, j]*
++ E.g.: p = *[ 30, 35, 15, 5, 10, 20, 25 ]* (n=7)
+  + At (i, j) = *(2, 5)*, cost is minimised by splitting at k = *3*:
+  + c[2, 5] = *c[2, 3]* + *c[4, 5]* + *35x5x20* = 7125
+
+![matrix-chain](static/img/Fig-15-5.svg)
+
+---
+```
+def matChain( p ):
+  n = length(p) - 1
+  c = array[ 1 .. n ][ 1 .. n ] of 0
+  s = array[ 1 .. n-1 ][ 2 .. n ]
+  for len = 2 to n:
+    for i = 1 to n - len + 1:
+      j = i + len - 1
+      c[ i, j ] = infinity
+      for k = i .. j-1:
+        q = c[ i, k ] + c[ k+1, j ] + p[ i-1 ] * p[ k ] * p[ j ]
+        if q < c[ i, j ]:
+          c[ i, j ] = q
+          s[ i, j ] = k
+```
+
+![matrix-chain](static/img/Fig-15-5.svg)
+
+---
+<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
+## Outline for today
++ Dynamic programming
+  + Rod-cutting problem
+  + Optimal substructure
+  + Recursive, top-down, bottom-up
++ Fibonacci sequence
 + Matrix-chain multiplication
++ **Longest common subsequence**
++ Shortest unweighted path
 + Optimal binary search tree
 
 ---
@@ -391,96 +472,64 @@ LCS( "*spanking*", "*amputation*" ):
   + Recursive, top-down, bottom-up
 + Fibonacci sequence
 + Longest common subsequence
-+ **Matrix-chain multiplication**
-+ Optimal binary search tree
-
----
-## Matrix-chain multiplication
-+ Given a **chain** of *n* matrices to multiply:
-  + \`A\_1 \*\* A\_2 \*\* A\_3 \*\* ... \*\* A\_n\`
-  + num **columns** of *left* matrix = num **rows** of *right* matrix
-  + \`(p\_0 xx p\_1)(p\_1 xx p\_2) ... (p\_(n-1) xx p\_n)\`
-+ All **parenthesisations** are equivalent, but which **minimises** number of operations?
-  + \`(p xx q)(q xx r) = (p xx r)\`
-+ **Input** is matrix dimensions \`{p\_i}_0^n\`
-+ e.g.: (*5 x 500*) (*500 x 2*) (*2 x 50*):
-  + \`(A\_1 A\_2)A\_3\`: (5)(500)(2) + (5)(2)(50) = *5500* ops
-  + \`A\_1(A\_2 A\_3)\`: (500)(2)(50) + (5)(500)(50) = 175000 ops
-+ **Exhaustive** search of parenthesisations takes \`Theta(2^n)\`
-
----
-## Optimal substructure
-+ Let *c(i, j)* be minimal **cost** (num ops) for multiplying matrices \`A\_i ... A\_j\`
-+ Consider one **split** at a time (like *rod-cut*)
-+ If the chain from *i* to *j* is split at *k*, the cost is:
-  + \`c(i,k) + c(k+1,j) + p\_(i-1) p\_k p\_j\` (matrix mult)
-+ **Naive** solution uses *2n* recursive calls per loop: \`Theta(2^n)\`
-
-```
-def matChain( p, i, j ):
-  if (i == j): return 0
-  cost = infinity
-  for k = i to j-1:
-    cost = min( cost, matChain( p, i, k ) + matChain( p, k+1, j ) +
-      p[ i-1 ] * p[ k ] * p[ j ] )
-  return cost
-```
-
----
-## Bottom-up solution
-+ Index subproblems by both **start** (*i*) and **end** (*j*):
-  + Taxonomy is a 2D **grid** of nodes, not 1D line
-+ Save minimal **cost** in matrix *c[i, j]*
-+ Save **split** point *k* in matrix *s[i, j]*
-+ E.g.: p = *[ 30, 35, 15, 5, 10, 20, 25 ]* (n=7)
-  + At (i, j) = *(2, 5)*, cost is minimised by splitting at k = *3*:
-  + c[2, 5] = *c[2, 3]* + *c[4, 5]* + *35x5x20* = 7125
-
-![matrix-chain](static/img/Fig-15-5.svg)
-
----
-
-```
-def matChain( p ):
-  n = length(p) - 1
-  c = array[ 1 .. n ][ 1 .. n ] of 0
-  s = array[ 1 .. n-1 ][ 2 .. n ]
-  for len = 2 to n:
-    for i = 1 to n - len + 1:
-      j = i + len - 1
-      c[ i, j ] = infinity
-      for k = i .. j-1:
-        q = c[ i, k ] + c[ k+1, j ] + p[ i-1 ] * p[ k ] * p[ j ]
-        if q < c[ i, j ]:
-          c[ i, j ] = q
-          s[ i, j ] = k
-```
-
-![matrix-chain](static/img/Fig-15-5.svg)
-
----
-<!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
-## Outline for today
-+ Dynamic programming
-  + Rod-cutting problem
-  + Optimal substructure
-  + Recursive, top-down, bottom-up
-+ Fibonacci sequence
-+ Longest common subsequence
 + Matrix-chain multiplication
++ **Shortest unweighted path**
 + **Optimal binary search tree**
 
 ---
 ## Shortest/longest path
++ Given an unweighted **graph** (*nodes* + *edges*)
+  + Find **shortest** path between given nodes *u* and *v*
++ Optimal **substructure**:
+  + If path is **split** at node *w*, then
+  + **Concatenating** shortest paths *u* &rarr; *w* and *w* &rarr; *v*
+  + Yields a **shortest** path from *u* to *v* through *w*
+
+<div class="imgbox" data-markdown><div style="flex:3">
++ What about **longest** path *u* &rarr; *v*?
+  + Obviously need to rule out **cycles**
+  + **Concatenate** *longest(u, w)* + *longest(w, v)*?
+  + **Doesn't** work!  Might not be **longest** *u* &rarr; *v*,
+  + and might have **cycles**
+</div><div>
+![Counter-example for longest path](static/img/Fig-15-6.svg)
+</div></div>
 
 ---
 ## Optimal BST
++ Given sorted **keys** K = \`{k\_i}\_1^n\` and **probabilities** P = \`{p\_i}\_1^n\`
+  + Build tree to minimise expected **search cost**
++ Recall cost for **successful** search is *&Theta;(h(k))* (depth of key)
++ To handle **unsuccessful** searches, add **dummy** keys \`{d\_i}\_0^n\` as leaves
+  + Dummy key \`d\_i\` represents entire **interval** \`(k\_(i-1), k\_i)\`
+  + Let \`q\_i\` be **probability** of \`d\_i\`
++ So probabilities across all search keys are \`sum p\_i + sum q\_i = 1\`
++ Expected **search cost** =
+  \` sum (h(k\_i)+1)p\_i + sum(h(d\_i)+1)q\_i\`
 
 ---
 ## Optimal substructure
++ Consider one **split** at a time: choice of **root**
++ Given keys \`k\_i, ..., k\_j\`:
+  + Consider making \`k\_r\` the **root** (*i* &le; *r* &le; *j*)
+  + Recurse on **left** subtree: \`k\_i, ..., k\_(r-1)\`
+  + Recurse on **right** subtree: \`k\_(r+1), ..., k\_j\`
++ **Demoting** a subtree increases the **depth** to each of its nodes by 1
+  + Increases **search cost** by
+    \`w(i,j) = sum\_(m=i)^j p\_m + sum\_(m=i-1)^j q\_m\`
++ So **cost** is \`e(i,j) = min\_(r=i)^j [ e(i, r-1) + e(r+1, j) + w(i,j) ]\`
 
 ---
 ## Optimal BST example
+
+| i |   0  |   1  |   2  |   3  |   4  |   5  |
+|---|------|------|------|------|------|------|
+| p |   -  | 0.15 | 0.10 | 0.05 | 0.10 | 0.20 |
+| q | 0.05 | 0.10 | 0.05 | 0.05 | 0.05 | 0.10 |
+
+\`e(i,j) = min\_(r=i)^j [ e(i, r-1) + e(r+1, j) + w(i,j) ]\`
+
+![Optimal BST example](static/img/Fig-15-10.svg)
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
@@ -490,8 +539,9 @@ def matChain( p ):
   + Optimal **substructure**
   + Recursive, top-down, **bottom-up** solutions
 + **Fibonacci** sequence
-+ Longest common **subsequence**
 + **Matrix-chain** multiplication
++ Longest common **subsequence**
++ Shortest unweighted **path**
 + Optimal **binary search tree**
 
 ---
