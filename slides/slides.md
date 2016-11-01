@@ -496,13 +496,14 @@ LCS( "*spanking*", "*amputation*" ):
 
 ---
 ## Optimal BST
-+ Given sorted **keys** K = \`{k\_i}\_1^n\` and **probabilities** P = \`{p\_i}\_1^n\`
++ Given sorted **keys** \`{k\_i}\_1^n\` and **probabilities** \`{p\_i}\_1^n\`
   + Build tree to minimise expected **search cost**
 + Recall cost for **successful** search is *&Theta;(h(k))* (depth of key)
-+ To handle **unsuccessful** searches, add **dummy** keys \`{d\_i}\_0^n\` as leaves
++ To handle **unsuccessful** searches:
+  + Add **dummy** keys \`{d\_i}\_0^n\` as leaves
   + Dummy key \`d\_i\` represents entire **interval** \`(k\_(i-1), k\_i)\`
-  + Let \`q\_i\` be **probability** of \`d\_i\`
-+ So probabilities across all search keys are \`sum p\_i + sum q\_i = 1\`
+  + Input \`q\_i\` as **probability** of \`d\_i\`
++ Probabilities over all search keys: \`sum p\_i + sum q\_i = 1\`
 + Expected **search cost** =
   \` sum (h(k\_i)+1)p\_i + sum(h(d\_i)+1)q\_i\`
 
@@ -513,10 +514,10 @@ LCS( "*spanking*", "*amputation*" ):
   + Consider making \`k\_r\` the **root** (*i* &le; *r* &le; *j*)
   + Recurse on **left** subtree: \`k\_i, ..., k\_(r-1)\`
   + Recurse on **right** subtree: \`k\_(r+1), ..., k\_j\`
-+ **Demoting** a subtree increases the **depth** to each of its nodes by 1
++ **Demoting** a subtree increments **depth** to each node
   + Increases **search cost** by
     \`w(i,j) = sum\_(m=i)^j p\_m + sum\_(m=i-1)^j q\_m\`
-+ So **cost** is \`e(i,j) = min\_(r=i)^j [ e(i, r-1) + e(r+1, j) + w(i,j) ]\`
++ So **cost** is \`e(i,j) = min\_(r=i...j) [ e(i, r-1) + e(r+1, j) + w(i,j) ]\`
 
 ---
 ## Optimal BST example
