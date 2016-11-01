@@ -442,13 +442,13 @@ def LCSLength( x, y ):
 
   for i = 1 to m:
     for j = 1 to n:
-      if x[ i ] == y[ j ]:              # case 2
+      if x[ i ] == y[ j ]:              # case 2: add a letter
         c[ i, j ] = c[ i-1, j-1 ] + 1
         b[ i, j ] = "UL"
-      elif c[ i-1, j ] >= c[ i, j-1 ]:  # case 3a
+      elif c[ i-1, j ] >= c[ i, j-1 ]:  # case 3a: go up a row
         c[ i, j ] = c[ i-1, j ]
         b[ i, j ] = "U"
-      else:                             # case 3b
+      else:                             # case 3b: go left a col
         c[ i, j ] = c[ i, j-1 ]
         b[ i, j ] = "L"
 ```
@@ -460,6 +460,7 @@ def LCSLength( x, y ):
 LCS( "*spanking*", "*amputation*" ):
 
 ![LCS example: spanking, amputation](static/img/LCS-spanking-amputation.png)
+<!-- .element: style="width: 50%" -->
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
