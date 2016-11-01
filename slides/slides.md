@@ -24,7 +24,7 @@
 ## Optimisation
 + Large class of real-world problems consisting of
   + Find the **max** (or min) value of some **goal** (cost) function
-    over some **search space**
+    <br/> over some **search space**
 + **Search space**: may be *discrete* or *continuous*
   + **Dimension** of space may be *low* or very *high* (`10^6` or more)
 + **Goal** function: may be *analytic* or a *black-box*
@@ -32,19 +32,21 @@
 + **Exhaustive** search usually way too *slow*
 
 ![Saddle point between maxima, [Wikimedia](https://commons.wikimedia.org/wiki/File%3ASaddle_Point_between_maxima.svg)](static/img/Saddle_Point_between_maxima.svg)
+<!-- .element: style="height: 7rem" -->
 
 ---
 ## Dynamic programming
-+ "Programming" here means **tables** (e.g., linear programming)
++ "Programming" here means **tables**
+  + (e.g., linear "programming")
 + A form of **divide-and-conquer**, but
   + Store solutions to **sub-problems** for reuse
-+ Outline for designing an implementation:
-  + Recursive **top-down** (*inefficient*)
-  + Top-down with **memoisation** (save *sub-results*)
-  + **Bottom-up** (solve *smaller* sub-problems first)
 + Efficiency depends on:
   + Optimal **substructure**
   + **Overlapping** sub-problems
++ Thought **process** to design solution:
+  + **Recurrence** yields a recursive **top-down** solution (*inefficient*)
+  + Top-down with **memoisation** (save *sub-results*)
+  + **Bottom-up** (solve *smaller* sub-problems first, eliminate recursion)
 
 ---
 <!-- .slide: data-background-image="https://sermons.seanho.com/img/bg/unsplash-mE5MBZX5sko-leaves.jpg" -->
