@@ -210,16 +210,17 @@ def cutRod( p, n ):
 
 ---
 ## Subproblem graph
-<div class="imgbox"><div data-markdown style="flex:4">
-
-+ **Nodes** are the subproblems (e.g., *cutRod( j )*)
-+ **Arrows** show *dependencies*: which other subproblems are needed to compute each node
-  + Like recursion **tree**, but collapsing reused nodes
-+ **Bottom-up**: must *sequence* nodes so all dependencies are resolved before reaching a node
-+ **Top-down**: performs a *depth-first* search down to leaves
-+ **Complexity** is generally &Theta;( *#nodes* + *#arrows* )
-
-</div><div>
+<div class="imgbox"><div style="flex:4"><ul>
+<li> <strong>Nodes</strong> are the subproblems (e.g., <em>cutRod( j )</em>)</li>
+<li> <strong>Arrows</strong> show <em>dependencies</em>:
+  which other subproblems are needed to compute each node <ul>
+  <li> Like recursion <strong>tree</strong>, but collapsing reused nodes </li>
+  </ul></li>
+<li> <strong>Bottom-up</strong>: must <em>sequence</em> nodes
+  so all dependencies are resolved before reaching a node</li>
+<li> <strong>Top-down</strong>: performs a <em>depth-first</em> search down to leaves</li>
+<li> <strong>Complexity</strong> is generally &Theta;( <em>#nodes</em> + <em>#arrows</em> )</li>
+</ul></div><div>
 ![node graph](static/img/Fig-15-4.svg)
 </div></div>
 
