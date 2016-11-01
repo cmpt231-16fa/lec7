@@ -100,7 +100,7 @@ May have **multiple** optimal solutions, with **same** \`r\_n\`
   + cut of length *2*: \`r\_n = p\_2 + r\_(n-2)\`
   + ...
   + cut of length *n*, i.e., **no** cuts: \`r\_n = p\_n\`
-+ **Recurrence** relation: \`r\_n = max\_(1<=i<=n)( p\_i + r\_(n-i) )\`
++ **Recurrence** relation: \`r\_n = max\_(i=1...n)( p\_i + r\_(n-i) )\`
 + Decomposes overall task into **subproblems** \`r\_i\`
 + Translates directly into a **recursive** solution
 
@@ -163,7 +163,7 @@ May have **multiple** optimal solutions, with **same** \`r\_n\`
 def cutRod( p, n ):
   if ( n < 1 ): return 0
   q = -infinity
-  for i = 1 to n:
+  for i = 1 .. n:
     q = max( q, p[ i ] + cutRod( p, n-i ) )
   return q
 ```
@@ -182,7 +182,7 @@ revenue [ 0 ] = 0
 def cutRod( p, n ):
   if revenue[ n ] != -infinity:
     return revenue[ n ]
-  for i = 1 to n:
+  for i = 1 .. n:
     revenue[ n ] = max( revenue[ n ], p[ i ] + cutRod( p, n-i ) )
   return revenue[ n ]
 ```
@@ -200,8 +200,8 @@ def cutRod( p, n ):
 def cutRod( p, n ):
   revenue = array[ 0 .. n ] of -infinity
   revenue[ 0 ] = 0
-  for j = 1 to n:
-    for i = 1 to j:
+  for j = 1 .. n:
+    for i = 1 .. j:
       revenue[ j ] = max( revenue[ j ], p[ i ] + revenue[ j-i ] )
   return revenue[ n ]
 ```
@@ -278,7 +278,7 @@ def fib( n ):
 def fib( n ):
   c = array[ 0 .. n ] of -1
   c[ 0 ] = c[ 1 ] = 1
-  for j = 2 to n:
+  for j = 2 .. n:
     c[ j ] = c[ j-1 ] + c[ j-2 ]
   return c[ n ]
 ```
@@ -318,14 +318,14 @@ Subproblem **graph**?
 + Let *c(i, j)* be min **cost** to multiply \`A\_i, ..., A\_j\`
 + Consider one **split** at a time (like *rod-cut*)
 + If the chain from *i* to *j* is split at *k*, the cost is:
-  + \`c(i,j) = c(i,k) + c(k+1,j) + p\_(i-1) p\_k p\_j\` (matrix mult)
+  <br/> \`c(i,j) = c(i,k) + c(k+1,j) + p\_(i-1) p\_k p\_j\`
 + **Naive** solution uses *2n* recursive calls per loop: \`Theta(2^n)\`
 
 ```
 def matChain( p, i, j ):
   if (i == j): return 0
   cost = infinity
-  for k = i to j-1:
+  for k = i .. j-1:
     cost = min( cost,
       matChain( p, i, k ) + matChain( p, k+1, j ) + p[ i-1 ] * p[ k ] * p[ j ] )
   return cost
@@ -336,9 +336,9 @@ def matChain( p, i, j ):
 + Index subproblems by both **start** (*i*) and **end** (*j*):
   + Taxonomy is a 2D **grid** of nodes, not 1D line
 + Save minimal **cost** in matrix *c[i, j]*
-+ Save **split** point *k* in matrix *s[i, j]*
-+ p = *[ 30, 35, 15, 5, 10, 20, 25 ]* (n=7), at (i, j) = *(2, 5)*, k = *3*:
-  + c[2, 5] = *c[2, 3]* + *c[4, 5]* + *35x5x20* = 7125
+  + Save **split** point *k* in matrix *s[i, j]*
++ p = *[ 30, 35, 15, 5, 10, 20, 25 ]* (n=7)
+  + at (i, j) = *(2, 5)*, k = *3*: c[2, 5] = *c[2, 3]* + *c[4, 5]* + *35x5x20* = 7125
 
 ![matrix-chain](static/img/Fig-15-5.svg)
 
@@ -348,8 +348,8 @@ def matChain( p ):
   n = length(p) - 1
   c = array[ 1 .. n ][ 1 .. n ] of 0
   s = array[ 1 .. n-1 ][ 2 .. n ]
-  for len = 2 to n:
-    for i = 1 to n - len + 1:
+  for len = 2 .. n:
+    for i = 1 .. n - len + 1:
       j = i + len - 1
       c[ i, j ] = infinity
       for k = i .. j-1:
@@ -387,28 +387,29 @@ def matChain( p ):
   + **check** (in &Theta;(n) time) if it's a subsequence of *Y*
 
 ---
-## Optimal substructure
+## LCS: optimal substructure
 + Let \`X\_k = {x\_i}\_1^k\` represent a **prefix** of *X*
-+ Let \`Z = {z\_i}\_1^k\` be any LCS of *X* and *Y*
-+ **Theorem (part 1)**: If \`x\_m = y\_n\`, then <br/> \`z\_k = x\_m = y\_n\`
-  and \`Z\_(k-1)\` is an **LCS** of \`X\_(m-1)\` and \`Y\_(n-1)\`
-+ **(part 2)**: If \`x\_m != y\_n\` and \`z\_k != x\_m\`, then <br/>
-  *Z* is an **LCS** of \`X\_(m-1)\` and Y
-+ **(part 3)**: If \`x\_m != y\_n\` and \`z\_k != y\_n\`, then <br/>
-  *Z* is an **LCS** of X and \`Y\_(n-1)\`
++ Let \`Z = {z\_i}\_1^k\` be any **LCS** of *X* and *Y*
++ **Theorem (part 1)**: If \`x\_m = y\_n\`, <br/>
+  then *(a)* \`z\_k = x\_m = y\_n\` <br/>
+  and *(b)* \`Z\_(k-1)\` is an **LCS** of \`X\_(m-1)\` and \`Y\_(n-1)\`
++ **Theorem (part 2)**: If \`x\_m != y\_n\` and \`z\_k != x\_m\`, <br/>
+  then *Z* is an **LCS** of \`X\_(m-1)\` and Y
++ **(part 3)**: If \`x\_m != y\_n\` and \`z\_k != y\_n\`, <br/>
+  then *Z* is an **LCS** of X and \`Y\_(n-1)\`
 + This theorem says that an LCS of two sequences contains
   (as prefix) an LCS of prefixes of the two sequences
 
 ---
 ## Proof of optimal substruct (part 1)
-+ Assume *Z* is an LCS of *X* and *Y*, and \`x\_m = y\_n\`
++ Assume *Z* is an **LCS** of *X* and *Y*, and \`x\_m = y\_n\`
 + **Part 1a**: Show \`z\_k = x\_m = y\_n\`:
   + Assume **not**: then create *Z'* by **appending** \`x\_m\` to *Z*:
     + i.e., let \`Z' = (z\_1, ..., z\_k, x\_m)\`
   + *Z'* is also a subsequence of *X* and *Y*, and it's **longer** than *Z*
   + This **contradicts** assumption that *Z* was an LCS of *X* and *Y*
-+ **Part 1b**: Show \`Z\_(k-1)\` is an LCS of \`X\_(m-1)\` and \`Y\_(n-1)\`:
-  + It's certainly a common subsequence (it just drops \`z\_k\`)
++ **Part 1b**: Show \`Z\_(k-1)\` is an **LCS** of \`X\_(m-1)\` and \`Y\_(n-1)\`:
+  + It's certainly a **subseq** of \`X\_(m-1)\` and \`Y\_(n-1)\` (it just drops \`z\_k\`)
   + If there existed a **longer** subseq *W* (length &gt; *k-1*), <br/>
     then we could create *W'* by **appending** \`x\_m\` to *W*
   + Now *W'* is a subseq of *X* and *Y*, and it's **longer** than *Z*
@@ -417,13 +418,13 @@ def matChain( p ):
 
 ---
 ## Proof of opt substruct (parts 2-3)
-+ Assume *Z* is an LCS of *X* and *Y*, and \`x\_m != y\_n\`
++ Assume *Z* is an **LCS** of *X* and *Y*, and \`x\_m != y\_n\`
 + **Part 2** (\`z\_k != x\_m\`): Show Z is an LCS of of \`X\_(m-1)\` and Y.
   + Let *W* be a subseq of \`X\_(m-1)\` and Y, with length &gt; *k*
   + Then *W* is also a subseq of *X* and *Y*, **longer** than *Z*
   + This **contradicts** assumption that *Z* was an LCS of *X* and *Y*
 + **Part 3** (\`z\_k != y\_n\`) is **symmetric**
-+ This concludes proof of **optimal substructure** for LCS
++ Thus in all cases, any **LCS** of *X* and *Y* has a **prefix** which is an **LCS** of prefixes of *X* and *Y*
 
 ---
 ## LCS recurrence
@@ -431,7 +432,7 @@ def matChain( p ):
 + \`c[i,j] = { (0, if i=0 or j=0), (c[i-1,j-1]+1, if (i,j)>0 and x\_i = y\_j),
   (max(c[i-1,j],c[j,i-1]), if (i,j)>0 and x\_i != y\_j) :} \`
 + LCS only gets **extended** by a character in case *2*
-+ e.g., LCS("bozo", "bat")
++ e.g., LCS("bozo", "bat") [*(3,3)* on rhs should be *(4,2)*]
 
 ![LCS example: bozo, bat](static/img/LCS-bozo-bat.png)
 
@@ -443,8 +444,8 @@ def LCSLength( x, y ):
   b[ 1 .. m ][ 1 .. n ] = new array
   c[ 0 .. m ][ 0 .. n ] = 0             # case 1 (init)
 
-  for i = 1 to m:
-    for j = 1 to n:
+  for i = 1 .. m:
+    for j = 1 .. n:
       if x[ i ] == y[ j ]:              # case 2: add a letter
         c[ i, j ] = c[ i-1, j-1 ] + 1
         b[ i, j ] = "UL"
@@ -460,7 +461,7 @@ def LCSLength( x, y ):
 
 ---
 ## LCS example
-LCS( "*spanking*", "*amputation*" ):
+What do "*spanking*" and "*amputation*" have in common? 
 
 ![LCS example: spanking, amputation](static/img/LCS-spanking-amputation.png)
 <!-- .element: style="width: 50%" -->
@@ -488,8 +489,8 @@ LCS( "*spanking*", "*amputation*" ):
   + Yields a **shortest** path from *u* to *v* through *w*
 
 <div class="imgbox"><div style="flex:3"><ul>
-<li> What about <strong>longest</strong> path <em>u</em> &rarr; <em>v</em>?</li>
-  <li> Obviously need to rule out <strong>cycles</strong></li>
+<li> What about <strong>longest</strong> path <em>u</em> &rarr; <em>v</em>?<ul>
+  <li> Obviously need to rule out <strong>cycles</strong></li> </ul></li>
   <li> <strong>Concatenate</strong> <em>longest(u, w)</em> + <em>longest(w, v)</em>?</li>
   <li> <strong>Doesn't</strong> work!  Might not be <strong>longest</strong> <em>u</em> &rarr; <em>v</em>,</li>
   <li> and might have <strong>cycles</strong></li>
@@ -506,8 +507,8 @@ LCS( "*spanking*", "*amputation*" ):
   + Add **dummy** keys \`{d\_i}\_0^n\` as leaves
   + Dummy key \`d\_i\` represents entire **interval** \`(k\_(i-1), k\_i)\`
   + Input \`q\_i\` as **probability** of \`d\_i\`
-+ Probabilities over all search keys: \`sum p\_i + sum q\_i = 1\`
-+ Expected **search cost** =
++ **Probabilities** over all search keys: \`sum p\_i + sum q\_i = 1\`
++ Expected **search cost**:
   \` sum (h(k\_i)+1)p\_i + sum(h(d\_i)+1)q\_i\`
 
 ---
