@@ -5,12 +5,13 @@
  * Original black.css by Hakim El Hattab, http://hakim.se
  */
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i');
+@import url('https://fonts.googleapis.com/earlyaccess/cwtexkai.css');
 
 /*********************************************
  * GLOBAL STYLES
  *********************************************/
 html {
-  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-family: "Source Sans Pro", "cwTeXKai", Helvetica, sans-serif;
   font-size: 2.375em;
   font-weight: 400;
 }
@@ -30,24 +31,13 @@ body { background: #222; }
 }
 
 /* Shading background images */
-/* background blend doesn't work on PhantomJS */
+/* background blend needs PhantomJS >= 2.1.1 */
 section[data-background-image] {
-  background-color: rgba(0,0,0,0.85);
+  background-color: rgba(0,0,0,0.6);
   text-shadow: 0 0 0.4em black, 0 0 0.4em black, 0 0 0.4em black, 0 0 0.4em black;
 }
 section.empty[data-background-image] {
   background-color: rgba(0,0,0,0);
-}
-/* Needed to override pdf.css */
-@media print {
-  section[data-background-image] h1,
-  section[data-background-image] h2,
-  section[data-background-image] h3,
-  section[data-background-image] h4,
-  section[data-background-image] h5,
-  section[data-background-image] h6 {
-    text-shadow: 0 0 0.4em black, 0 0 0.4em black, 0 0 0.4em black, 0 0 0.4em black !important;
-  }
 }
 
 /*********************************************
